@@ -1,0 +1,53 @@
+import { test, expect } from '@playwright/test';
+
+// test('test', async ({ page }) => {
+//   await page.goto('https://www.pricefox.gr/');
+//   await page.getByRole('button', { name: 'Accept All' }).click();
+//   await page.getByRole('link', { name: 'arrow icon energy vector' }).click();
+//   await page.getByText('Ρεύμα', { exact: true }).click();
+//   await page.getByText('Οικιακός').click();
+//   await page.getByText('Όχι').first().click();
+//   await page.getByText('Όχι').nth(1).click();
+//   await page.getByRole('button', { name: 'Επόμενο' }).click();
+//   await page.locator('label:nth-child(24)').click();
+//   await page.getByRole('button', { name: 'Επόμενο' }).click();
+//   await page.getByRole('textbox', { name: 'Ονοματεπώνυμο' }).click();
+//   await page.getByRole('textbox', { name: 'Ονοματεπώνυμο' }).fill('αθτομ');
+//   await page.getByRole('textbox', { name: 'Ονοματεπώνυμο' }).press('ControlOrMeta+a');
+//   await page.getByRole('textbox', { name: 'Ονοματεπώνυμο' }).fill('automation testing');
+//   await page.getByRole('textbox', { name: 'Ονοματεπώνυμο' }).press('Tab');
+//   await page.getByRole('textbox', { name: 'Email' }).fill('testing@gmail.com');
+//   await page.getByRole('textbox', { name: 'Email' }).press('Tab');
+//   await page.getByRole('textbox', { name: 'Τηλέφωνο' }).fill('321312312');
+//   await page.locator('input[name="personalDataProcessingConsent"]').check();
+//   await page.locator('div').filter({ hasText: 'Επιθυμώ να λαμβάνω ενημερωτικά μηνύματα και προσφορές από το Pricefox.gr' }).nth(4).click();
+//   await page.locator('input[name="marketingConsent"]').check();
+//   await page.getByRole('button', { name: 'Σύγκριση προσφορών' }).click();
+//   await page.getByRole('textbox', { name: 'Τηλέφωνο' }).dblclick();
+//   await page.getByRole('textbox', { name: 'Τηλέφωνο' }).fill('2121010102');
+//   await page.getByRole('button', { name: 'Σύγκριση προσφορών' }).click();
+//   await page.locator('.more-info-button > div').first().click();
+// });
+
+test('test', async ({ page }) => {
+  await page.goto('https://www.pricefox.gr/');
+  await page.getByRole('button', { name: 'Accept All' }).click();
+  await page.getByRole('link', { name: 'arrow icon heart vector' }).click();
+  await page.locator('iframe').contentFrame().getByText('Όνομα *').click();
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Όνομα Required' }).click();
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Όνομα Required' }).fill('dkaskdas');
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Όνομα Required' }).press('Tab');
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Επώνυμο Required' }).fill('dkasdkakdas');
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Επώνυμο Required' }).press('Tab');
+  await page.locator('#body iframe').contentFrame().getByLabel('-Select-').getByText('-Select-').click();
+  await page.locator('#body iframe').contentFrame().locator('input[type="search"]').fill('15234');
+  await page.locator('#body iframe').contentFrame().getByRole('treeitem', { name: '15234' }).click();
+  await page.locator('#body iframe').contentFrame().getByRole('button', { name: 'Επόμενο Navigates to page 2' }).click();
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Email Required' }).click();
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Email Required' }).fill('jadjasdjasjda@gmail.com');
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Email Required' }).press('Tab');
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Τηλέφωνο Required' }).click();
+  await page.locator('#body iframe').contentFrame().getByRole('textbox', { name: 'Τηλέφωνο Required' }).fill('000000000');
+  await page.locator('#body iframe').contentFrame().locator('.checker').first().click();
+  await page.locator('#body iframe').contentFrame().getByRole('button', { name: 'Υποβολή' }).click();
+});

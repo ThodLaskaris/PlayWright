@@ -27,7 +27,6 @@ test.describe('Form Layouts page', () => {
 
         // locator  assertion
 
-        // locator assertion -11-
 
         await expect(usingTheGridEmailInput).toHaveValue('test2@test.com')
     })
@@ -40,5 +39,16 @@ test.describe('Form Layouts page', () => {
 
         await usingTheGridForm.getByRole('radio', { name: "Option 1" })
             .check({ force: true })
+
+        const radioStatus = await usingTheGridForm.getByLabel('Option 1')
+            .isChecked()
+
+        expect(radioStatus).toBeTruthy()
+        await expect(usingTheGridForm.getByRole('radio', { name: "Option 1" })).toBeChecked()
+
+        await usingTheGridForm.getByRole('radio', { name: "Option 2" })
+            .check({ force: true })
+            expect(await usingTheGridForm.getByRole('radio', {name: "Option 1"}).isChecked()).toBeFalsy()
+            expect(await usingTheGridForm.getByRole('radio', {name: "Option 2"}).isChecked()).toBeTruthy()
     })
 })

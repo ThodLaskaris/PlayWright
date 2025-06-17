@@ -101,7 +101,37 @@ test('lists and dropdowns', async ({ page }) => {
     for (const color in colors) {
         await optionList.filter({ hasText: color }).click()
         await expect(header).toHaveCSS('background-color', colors[color])
-        if(color != "Corporate")
-        await dropDownMenu.click()
+        if (color != "Corporate")
+            await dropDownMenu.click()
     }
+})
+
+test('tooltips', async ({ page }) => {
+    await page.getByText('Modal & Overlays').click()
+    await page.getByText('Tooltip').click()
+
+    const toolTipCard = page.locator('nb-card', { hasText: "Tooltip Placements" })
+    await toolTipCard.getByRole('button', { name: "Top" }).hover()
+
+    page.getByRole('tooltip') // if you have role tooltip created
+    const tooltip = await page.locator('nb-tooltip').textContent()
+    expect(tooltip).toEqual('This is a tooltip')
+})
+
+
+test('dialog box', async ({ page }) => {
+    await page.getByText('Tables & Data').click()
+    await page.getByText('Smart Table').click()
+
+    // dialog box browser
+
+    page.on('dialog', dialog => {
+        expect(dialog.message()).toEqual('Are you sure you want to delete?')
+        dialog.accept()
+    })
+
+    await page.getByRole('table').locator('tr', { hasText: "mdo@gmail.com" })
+        .locator('.nb-trash')
+        .click()
+    await expect(page.locator('table tr ').first()).not.toHaveText('mdo@gmail.com')
 })
